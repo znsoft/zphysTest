@@ -1,6 +1,12 @@
+import zPhys.zField;
+
 import java.awt.*;
 
 public class MyPaint extends javax.swing.JPanel {
+    zField field;
+    public MyPaint(zField field) {
+      this.field = field;
+    }
 
     @Override
     public void paintComponent(Graphics g) {

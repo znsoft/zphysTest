@@ -10,8 +10,8 @@ public class Constraint {
     public Unit2D unit1;
     public Unit2D unit2;
     public double length;
-    public static final double SPACING = 8;
-    public static final double tearDist = 60;
+    public static final double SPACING = 0.8;
+    public static final double tearDist = 2;
 
     public Constraint(Unit2D unit1, Unit2D unit2) {
         this.unit1 = unit1;

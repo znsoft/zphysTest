@@ -12,7 +12,7 @@ public class Unit2D {
     public HashMap<Unit2D,Constraint> linked = new HashMap<>();
     double friction = 0.99;
     double delta = 0.016;
-    double gravity = 400;
+    double gravity = 0.400;
 
     public boolean isPinned = false;
 
@@ -58,6 +58,7 @@ public class Unit2D {
     }
 
     public Constraint attach(Unit2D unit){
+        if(unit==null)return null;
         if (linked.containsKey(unit)) return linked.get(unit);
         linked.put(unit,new Constraint(this,unit));
         return linked.put(unit, new Constraint(this,unit));
