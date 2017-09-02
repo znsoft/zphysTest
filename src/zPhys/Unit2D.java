@@ -10,9 +10,10 @@ public class Unit2D {
     public Position2D position;
     public double entropyFactor;
     public HashMap<Unit2D,Constraint> linked = new HashMap<>();
-    double friction = 0.99;
-    double delta = 0.016;
-    double gravity = 0.400;
+    double friction = 0.0000099;
+    double delta = 0.00016;
+    double gravity = 0.0000000400;
+    double bounce = 0.5;
 
     public boolean isPinned = false;
 
@@ -47,11 +48,23 @@ public class Unit2D {
         return this;
     }
 
-    public Unit2D update(){
+    public Unit2D update( Vector2 bound){
         if(isPinned)return this;
         AddForce(new Vector2(0, gravity));
         double nx = position.getX() + (position.getX() - position.prevpos.x) * friction + force.x * delta;
         double ny = position.getY() + (position.getY() - position.prevpos.y) * friction + force.y * delta;
+        if (nx >= bound.x) {
+            nx = bound.x + (bound.x - position.prevpos.x) * bounce;
+        } else if (nx <= 0) {
+            nx *= -1 * bounce;
+        }
+
+        if (ny >= bound.y) {
+            ny = bound.y + (bound.y - position.prevpos.y) * bounce;
+        } else if (ny <= 0) {
+            ny *= -1 * bounce;
+        }
+
         position.SetXY(nx,ny);
         force = Vector2.ZERO;
         return this;
@@ -93,7 +106,9 @@ public class Unit2D {
     }
 
 
+    public void MouseClick(Position2D pos) {
 
+        position.SetXY(pos.getX(),pos.getY());
 
-
+    }
 }

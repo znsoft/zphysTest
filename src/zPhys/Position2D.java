@@ -29,6 +29,7 @@ public class Position2D {
         prevpos = new Vector2(pos);
     }
 
+
     public Position2D SetXY(int x, int y) {
         prevpos = new Vector2(pos);
         this.x = x;
@@ -49,6 +50,13 @@ public class Position2D {
 
     public Position2D SetXY(Vector2 vec){
         return SetXY(vec.x, vec.y);
+    }
+
+    public Position2D SetX(double x){
+        prevpos.x =pos.x;
+        pos.x = x;
+        this.x = (int)x;
+        return this;
     }
 
 

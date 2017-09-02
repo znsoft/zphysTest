@@ -10,7 +10,7 @@ import java.awt.Graphics;
 
 public class zForm {
     private static final int WINDOWSIZE = 400;
-    JFrame frame;
+    public JFrame frame;
 
     public void InitLocalVisualWindow(zField field) {
         javax.swing.JPanel paintTester = new MyPaint(field);
@@ -23,6 +23,14 @@ public class zForm {
         frame.add(paintTester);
         // frame.pack();
         frame.setVisible(true);
+    }
+
+    public void update(){
+
+
+        frame.repaint(100, 0, 0, WINDOWSIZE, WINDOWSIZE);
+        frame.invalidate();
+
     }
 
 
