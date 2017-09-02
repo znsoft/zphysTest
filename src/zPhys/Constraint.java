@@ -10,9 +10,9 @@ public class Constraint {
     public Unit2D unit1;
     public Unit2D unit2;
     public double length;
-    public static final double SPACING = 0.9; // длина спокойной (не сжатой и не растянутой) связи
+    public static final double SPACING = 0.7; // длина спокойной (не сжатой и не растянутой) связи
     public static final double SPRING = 0.5; // длина сжатой связи
-    public static final double tearDist = 2.5;// длина обрыва связи
+    public static final double tearDist = 3;// длина обрыва связи
 
     public Constraint(Unit2D unit1, Unit2D unit2) {
         this.unit1 = unit1;
@@ -25,7 +25,7 @@ public class Constraint {
         double dx = unit1.position.getX() - unit2.position.getX();
         double dy = unit1.position.getY() - unit2.position.getY();
         double dist = StrictMath.sqrt(dx * dx + dy * dy);
-        if (dist == this.length) return null;
+        if (dist < this.length&&dist>Constraint.SPRING) return null;
 
 
         double diff = (this.length - dist) / dist;
@@ -36,11 +36,17 @@ public class Constraint {
 
         Vector2 delta = new Vector2(dx * mul, dy * mul);
 
-        if (dist < this.length) {
-            //unit2.AddXY(delta);
-            //unit1.SubXY(delta);
+
+        if (dist <= Constraint.SPRING) {
+           //unit2.AddForce(delta);
+           //unit1.AddForce(delta.Mul(-1));
+            unit2.AddXY(delta);
+            unit1.SubXY(delta);
             return null;
         }
+        //unit1.AddForce(delta);
+        //unit2.AddForce(delta.Mul(-1));
+
         unit1.AddXY(delta);
         unit2.SubXY(delta);
         return null;

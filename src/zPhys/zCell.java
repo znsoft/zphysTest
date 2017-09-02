@@ -16,8 +16,13 @@ public class zCell {
     }
 
     public void addUnit(Unit2D unit){
+        if(inner.size()<10)
         for (Unit2D u:inner) {
-            //u.attach(unit);
+          double dx = u.position.getX() - unit.position.getX();
+          double dy = u.position.getY() - unit.position.getY();
+          Vector2 normal = new Vector2(dx,dy).normalize().Mul(-0.0002);
+          //unit.AddForce(normal);
+           // u.attach(unit);
         }
         inner.add(unit);
 
@@ -35,6 +40,7 @@ public class zCell {
             if(unit.position.getXi()!=x||unit.position.getYi()!=y){Removed.add(unit);continue;}
 
         }
+
        return  Removed;
 
     }

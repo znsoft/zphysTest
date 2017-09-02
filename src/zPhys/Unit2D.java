@@ -11,7 +11,7 @@ public class Unit2D {
     public double entropyFactor;
     public HashMap<Unit2D,Constraint> linked = new HashMap<>();
     double friction = 0.0000099;
-    double delta = 0.00016;
+    double delta = 0.0016000;
     double gravity = 0.0000000400;
     double bounce = 0.5;
 
@@ -20,18 +20,18 @@ public class Unit2D {
     public Unit2D(int x, int y, double entropyFactor) {
         position = new Position2D(x, y);
         this.entropyFactor = entropyFactor;
-        this.force = new Vector2(0.0f,0.0f);
+        this.force = Vector2.ZERO;//(0.0f,0.0f);
     }
 
 
     public Unit2D(double x, double y) {
         position = new Position2D(x, y);
-        this.force = new Vector2(0.0f,0.0f);
+        this.force = Vector2.ZERO;//(0.0f,0.0f);
     }
 
     public Unit2D(int x, int y) {
         position = new Position2D(x, y);
-        force = new Vector2(0.0f,0.0f);
+        force = Vector2.ZERO;//(0.0f,0.0f);
     }
 
     public Unit2D AddForce(Vector2 vec){
@@ -64,7 +64,7 @@ public class Unit2D {
         } else if (ny <= 0) {
             ny *= -1 * bounce;
         }
-
+        //position.Add()
         position.SetXY(nx,ny);
         force = Vector2.ZERO;
         return this;
@@ -72,6 +72,7 @@ public class Unit2D {
 
     public Constraint attach(Unit2D unit){
         if(unit==null)return null;
+        if(this==unit)return null;
         if (linked.containsKey(unit)) return linked.get(unit);
         linked.put(unit,new Constraint(this,unit));
         return linked.put(unit, new Constraint(this,unit));

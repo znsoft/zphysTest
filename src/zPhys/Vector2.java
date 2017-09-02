@@ -30,4 +30,18 @@ public class Vector2 {
         return this;
     }
 
+    public Vector2 normalize(){
+        double max = StrictMath.max(x,y);
+        if(max==0)return this;
+            x = x/max;
+            y = y/max;
+            return this;
+    }
+
+    public Vector2 Mul(double m){
+        x*=m;
+        y*=m;
+        return this;
+    }
+
 }

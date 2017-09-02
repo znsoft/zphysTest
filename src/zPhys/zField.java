@@ -17,19 +17,23 @@ public class zField implements Runnable {
         this.y = y;
         bound = new Vector2((double)x,(double)y);
         touchedCells = new HashSet<>();
-        for(y=0;y<this.y;y++)        for(x=0;x<this.x;x++)   {
+        for(y=0;y<this.y;y++)
+            for(x=0;x<this.x;x++)
+                put(x,y);
+
+
+        int s = 1;
+        for(y=0;y<this.y;y+=s)        for(x=0;x<this.x;x+=s)   {
             zCell cell = put(x,y);
             if(cell == null)continue;
             Unit2D unit = new Unit2D(x, y );
-                    if(y == 0 ) unit.isPinned = true;
-                    if(y == this.y-1) unit.isPinned = true;
-                    if(x != 0&&y>0) unit.attach(getUnitsInCell(x-1,y).stream().findFirst().orElse(null));
-                    if(y != 0) unit.attach(getUnitsInCell(x,y-1).stream().findFirst().orElse(null));
+            if(y == 0 ) unit.isPinned = true;
+           // if(y == this.y-1&& x==this.x/2) unit.isPinned = true;
+            if(x != 0) unit.attach(getUnitsInCell(x - s, y).stream().findFirst().orElse(null));
+            if(y != 0) unit.attach(getUnitsInCell( x,y - s).stream().findFirst().orElse(null));
             cell.addUnit(unit);
             touchedCells.add(cell);
         }
-
-
 
     }
 
@@ -63,19 +67,6 @@ public class zField implements Runnable {
         return cell;
     }
 
-
-    /*public zCell AddCell(int x,int y, zCell cell){
-        zCell c;
-        c = get(x,y);
-        if(c!=null)return put(x,y, zCell.calcPriorityCell(x,y,c,cell));
-        if(cell == null)c = new zCell(x,y,entropyFactor); else c = cell;
-        //force addiction
-
-        put(x,y,c);
-        return c;
-
-    }*/
-
     public zField update(){
         ResolveConstraints();
         ResolveCells();
@@ -91,6 +82,7 @@ public class zField implements Runnable {
 
             ArrayList<Unit2D> units =  cell.update(bound);
             if(units.size()==oldCount) toRemove.add(cell);
+            cell.inner.removeAll(units);
             needTouch.addAll(units);
         }
         touchedCells.removeAll(toRemove);
