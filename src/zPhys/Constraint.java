@@ -30,7 +30,12 @@ public class Constraint {
 
         double diff = (this.length - dist) / dist;
 
-        if (dist > tearDist) {unit1.free(unit2);unit2.free(unit1); return this;}
+        if (dist > tearDist && unit1.linked.size()<2&&unit2.linked.size()<2) {
+            //if(unit1.linked.size()>1)
+            unit1.free(unit2);
+            //if(unit2.linked.size()>1)
+            unit2.free(unit1);
+            return this;}
 
         double mul = diff * 0.5 * (1 - this.length / dist);
 

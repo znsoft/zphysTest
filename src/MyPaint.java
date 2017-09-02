@@ -36,16 +36,16 @@ public class MyPaint extends javax.swing.JPanel {
         }}
 
 
-  /*      for (int y = 0; y <= field.y; y++)
+        for (int y = 0; y <= field.y; y++)
             for (int x = 0; x <= field.x; x++) {
                 zCell e = field.get(x, y);
                 if (e == null) continue;
 
                 if(e.inner.size()==0)continue;
-                g.setColor(Color.LIGHT_GRAY);
+                g.setColor(Color.CYAN);
                     g.drawRect((int)(x * wb), (int)(y * hb), (int)wb, (int)hb);
 
-            }*/
+            }
 
 
         for (zCell cell:field.touchedCells             ) {

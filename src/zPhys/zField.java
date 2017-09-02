@@ -28,7 +28,7 @@ public class zField implements Runnable {
             if(cell == null)continue;
             Unit2D unit = new Unit2D(x, y );
             if(y == 0 ) unit.isPinned = true;
-           // if(y == this.y-1&& x==this.x/2) unit.isPinned = true;
+            if(y == this.y-1) unit.isPinned = true;
             if(x != 0) unit.attach(getUnitsInCell(x - s, y).stream().findFirst().orElse(null));
             if(y != 0) unit.attach(getUnitsInCell( x,y - s).stream().findFirst().orElse(null));
             cell.addUnit(unit);
@@ -115,6 +115,5 @@ public class zField implements Runnable {
         if(cell==null)return;
         if(cell.inner.size()==0)return;
         cell.MouseClick(pos);
-
     }
 }
