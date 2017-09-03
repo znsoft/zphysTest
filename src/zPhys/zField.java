@@ -8,10 +8,12 @@ import java.util.HashSet;
  */
 public class zField implements Runnable {
     public zCell[][] field;
+    public static Unit2D taked;
     Vector2 bound;
     public HashSet<zCell> touchedCells;
     public int x,y;
     public zField(int x,int y) {
+        taked = null;
         field = new zCell[x][y];
         this.x = x;
         this.y = y;
@@ -27,10 +29,23 @@ public class zField implements Runnable {
             zCell cell = put(x,y);
             if(cell == null)continue;
             Unit2D unit = new Unit2D(x, y );
-            if(y == 0 ) unit.isPinned = true;
-            if(y == this.y-1) unit.isPinned = true;
-            if(x != 0) unit.attach(getUnitsInCell(x - s, y).stream().findFirst().orElse(null));
-            if(y != 0) unit.attach(getUnitsInCell( x,y - s).stream().findFirst().orElse(null));
+            if(y == 0 && (x+3)%6==0 ) unit.isPinned = true;
+           // if(y == this.y-1) unit.isPinned = true;
+            //if(x != 0) unit.attach(getUnitsInCell(x - s, y).stream().findFirst().orElse(null));
+            //if(y != 0) {
+
+                unit.attach(getUnitsInCell(x - s, y).stream().findFirst().orElse(null),false);
+                unit.attach(getUnitsInCell(x, y - s).stream().findFirst().orElse(null),false);
+                unit.attach(getUnitsInCell(x-s, y - s).stream().findFirst().orElse(null),true);
+                unit.attach(getUnitsInCell(x+s, y - s).stream().findFirst().orElse(null),true);
+s=2;
+            unit.attach(getUnitsInCell(x - s, y).stream().findFirst().orElse(null),false);
+            unit.attach(getUnitsInCell(x, y - s).stream().findFirst().orElse(null),false);
+            unit.attach(getUnitsInCell(x-s, y - s).stream().findFirst().orElse(null),true);
+            unit.attach(getUnitsInCell(x+s, y - s).stream().findFirst().orElse(null),true);
+s=1;
+
+            //}
             cell.addUnit(unit);
             touchedCells.add(cell);
         }
@@ -68,8 +83,8 @@ public class zField implements Runnable {
     }
 
     public zField update(){
-        ResolveConstraints();
         ResolveCells();
+        ResolveConstraints();
 
         return this;
     }

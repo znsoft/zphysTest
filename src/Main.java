@@ -9,7 +9,8 @@ public class Main {
         zForm zform = new zForm();
         zform.InitLocalVisualWindow(field);
 
-        while(true){
+        while(zform.frame.isShowing()){
+
             field.update();
             zform.update();
         }

@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class zForm {
-    private static final int WINDOWSIZE = 400;
+    private static final int WINDOWSIZE = 600;
     public JFrame frame;
 
     public void InitLocalVisualWindow(zField field) {

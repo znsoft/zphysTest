@@ -8,20 +8,13 @@ import java.util.*;
 public class Unit2D {
     public Vector2 force;
     public Position2D position;
-    public double entropyFactor;
     public HashMap<Unit2D,Constraint> linked = new HashMap<>();
     double friction = 0.0000099;
-    double delta = 0.0016000;
-    double gravity = 0.0000000400;
-    double bounce = 0.5;
+    double delta = 0.00216000;
+    double gravity = 0.000000400;
+    double bounce = 1.5;
 
     public boolean isPinned = false;
-
-    public Unit2D(int x, int y, double entropyFactor) {
-        position = new Position2D(x, y);
-        this.entropyFactor = entropyFactor;
-        this.force = Vector2.ZERO;//(0.0f,0.0f);
-    }
 
 
     public Unit2D(double x, double y) {
@@ -53,29 +46,30 @@ public class Unit2D {
         AddForce(new Vector2(0, gravity));
         double nx = position.getX() + (position.getX() - position.prevpos.x) * friction + force.x * delta;
         double ny = position.getY() + (position.getY() - position.prevpos.y) * friction + force.y * delta;
+
         if (nx >= bound.x) {
-            nx = bound.x + (bound.x - position.prevpos.x) * bounce;
+            nx = bound.x + (bound.x - nx) * bounce;
         } else if (nx <= 0) {
             nx *= -1 * bounce;
         }
 
         if (ny >= bound.y) {
-            ny = bound.y + (bound.y - position.prevpos.y) * bounce;
+            ny = bound.y + (bound.y - ny) * bounce;
         } else if (ny <= 0) {
             ny *= -1 * bounce;
         }
-        //position.Add()
+        //position.Add(new Vector2(nx,ny));
         position.SetXY(nx,ny);
         force = Vector2.ZERO;
         return this;
     }
 
-    public Constraint attach(Unit2D unit){
+    public Constraint attach(Unit2D unit,boolean isHide){
         if(unit==null)return null;
         if(this==unit)return null;
         if (linked.containsKey(unit)) return linked.get(unit);
-        linked.put(unit,new Constraint(this,unit));
-        return linked.put(unit, new Constraint(this,unit));
+        linked.put(unit,new Constraint(this,unit,isHide));
+        return linked.put(unit, new Constraint(this,unit,isHide));
     }
 
     public Unit2D free(Unit2D unit){
@@ -111,5 +105,9 @@ public class Unit2D {
 
         position.SetXY(pos.getX(),pos.getY());
 
+    }
+
+    public double getDistanceTo(Unit2D unit2) {
+        return position.getDistanceTo(unit2.position);
     }
 }

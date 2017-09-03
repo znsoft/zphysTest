@@ -1,4 +1,5 @@
 import zPhys.Constraint;
+import zPhys.Position2D;
 import zPhys.zCell;
 import zPhys.zField;
 
@@ -32,10 +33,21 @@ public class MyPaint extends javax.swing.JPanel {
         if(xm<g.getClipBounds().getWidth()&&ym<g.getClipBounds().getHeight()&&xm>0&&ym>0)
         {
             g.fillRect((int)(xm), (int)(ym), (int)10, (int)10);
-            field.Click(xm/wb,ym/hb,true);
-        }}
+            //if(zField.taked==null) {
+                field.Click(xm / wb, ym / hb, true);
+            //}else{
+              //  Position2D pos = new Position2D(xm,ym);
+                //zField.taked.MouseClick(pos);
+
+           // }
+
+        }else{zField.taked = null;}
 
 
+
+        }
+
+/*
         for (int y = 0; y <= field.y; y++)
             for (int x = 0; x <= field.x; x++) {
                 zCell e = field.get(x, y);
@@ -43,20 +55,24 @@ public class MyPaint extends javax.swing.JPanel {
 
                 if(e.inner.size()==0)continue;
                 g.setColor(Color.CYAN);
-                    g.drawRect((int)(x * wb), (int)(y * hb), (int)wb, (int)hb);
+                 //   g.drawRect((int)(x * wb), (int)(y * hb), (int)wb, (int)hb);
 
             }
 
 
         for (zCell cell:field.touchedCells             ) {
             g.setColor(Color.LIGHT_GRAY);
-            g.drawRect((int)(cell.x * wb), (int)(cell.y * hb), (int)wb, (int)hb);
+          //  g.drawRect((int)(cell.x * wb), (int)(cell.y * hb), (int)wb, (int)hb);
 
         }
-
+*/
         for (Constraint c : Constraint.AllConstraints
                 ) {
-            g.setColor(Color.RED);
+            if(c.isHide)continue;
+            int r = (int) (c.rad * 2125);
+
+
+            g.setColor(new Color(r));
             g.drawLine((int)(c.unit1.position.getX() * wb),(int)(c.unit1.position.getY() * hb), (int)(c.unit2.position.getX() * wb),(int)(c.unit2.position.getY() * hb));
         }
         }

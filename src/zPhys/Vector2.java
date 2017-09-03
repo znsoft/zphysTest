@@ -44,4 +44,9 @@ public class Vector2 {
         return this;
     }
 
+
+    public double radius(){
+        return StrictMath.hypot(x,y);
+
+    }
 }
