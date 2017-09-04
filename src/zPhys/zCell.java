@@ -8,6 +8,7 @@ import java.util.HashSet;
  */
 public class zCell {
     public int x,y;
+    public boolean isFreeze;
     public HashSet<Unit2D> inner;
     public zCell(int x,int y){
         inner = new HashSet<>();
@@ -32,12 +33,12 @@ public class zCell {
 
         }
         */
-        unit.position.SetXY(unit.position.prevpos.x,unit.position.prevpos.y);
+/*        unit.position.SetXY(unit.position.prevpos.x,unit.position.prevpos.y);
         if(inner.size()<4)for (Unit2D u : inner) {
             double dist = unit.getDistanceTo(u);
             if(dist<Constraint.GLUEDIST){unit.attach(u,false);break;}
 
-        }
+        }*/
 
         inner.add(unit);
 
@@ -53,6 +54,7 @@ public class zCell {
     public ArrayList <Unit2D> update(Vector2 bound){
 
         ArrayList <Unit2D> Removed = new ArrayList<>();
+        if(isFreeze)return Removed;//.addAll(inner.);
         for (Unit2D unit: inner ) {
             unit.update(bound);
 

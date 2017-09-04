@@ -70,10 +70,16 @@ public class MyPaint extends javax.swing.JPanel {
                 ) {
             if(c.isHide)continue;
             int r = (int) (c.rad * 2125);
+            int x1 = (int)(c.unit1.position.getX() * wb);
+            int x2 = (int)(c.unit2.position.getX() * wb);
+            int y1 = (int)(c.unit1.position.getY() * hb);
+            int y2 = (int)(c.unit2.position.getY() * hb);
+
 
 
             g.setColor(new Color(r));
             g.drawLine((int)(c.unit1.position.getX() * wb),(int)(c.unit1.position.getY() * hb), (int)(c.unit2.position.getX() * wb),(int)(c.unit2.position.getY() * hb));
+           // g.drawString(String.valueOf(c.rad),x1+(x2-x1)/2,y1+(y2-y1)/2);
         }
         }
 
