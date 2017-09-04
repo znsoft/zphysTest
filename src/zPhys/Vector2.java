@@ -45,8 +45,9 @@ public class Vector2 {
     }
 
 
-    public double radius(){
-        return StrictMath.hypot(x,y);
+    public double length(){
+        return StrictMath.sqrt(x * x + y * y);
+        //return StrictMath.hypot(x,y);
 
     }
 }

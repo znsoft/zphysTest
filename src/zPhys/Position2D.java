@@ -76,6 +76,11 @@ public class Position2D {
         return this;
     }
 
+    public Position2D swap(){
+        return new Position2D(prevpos);
+    }
+
+
     public int getXi() {
         return x;
     }

@@ -49,6 +49,20 @@ s=1;
             cell.addUnit(unit);
             touchedCells.add(cell);
         }
+        /*
+        Unit2D luCorner = getUnitsInCell(0, 0).stream().findFirst().orElse(null);
+        Unit2D ldCorner = getUnitsInCell(0, this.y-1).stream().findFirst().orElse(null);
+        Unit2D ruCorner = getUnitsInCell(this.x-1, 0).stream().findFirst().orElse(null);
+        Unit2D rdCorner = getUnitsInCell(this.x-1, this.y-1).stream().findFirst().orElse(null);
+        rdCorner.attach(luCorner,false);
+        rdCorner.attach(ruCorner,false);
+        rdCorner.attach(ldCorner,false);
+
+        ldCorner.attach(luCorner,false);
+        ldCorner.attach(ruCorner,false);
+
+        luCorner.attach(ruCorner,false);
+*/
 
     }
 
@@ -94,6 +108,7 @@ s=1;
         ArrayList<Unit2D> needTouch = new ArrayList<>();
         for (zCell cell:touchedCells) {
             int oldCount = cell.inner.size();
+            if(oldCount==0){ toRemove.add(cell);continue;}
 
             ArrayList<Unit2D> units =  cell.update(bound);
             if(units.size()==oldCount) toRemove.add(cell);

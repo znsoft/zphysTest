@@ -33,7 +33,16 @@ public class zCell {
         }
         */
         unit.position.SetXY(unit.position.prevpos.x,unit.position.prevpos.y);
+        if(inner.size()<4)for (Unit2D u : inner) {
+            double dist = unit.getDistanceTo(u);
+            if(dist<Constraint.GLUEDIST){unit.attach(u,false);break;}
+
+        }
+
         inner.add(unit);
+
+
+
 
     }
 
@@ -46,6 +55,7 @@ public class zCell {
         ArrayList <Unit2D> Removed = new ArrayList<>();
         for (Unit2D unit: inner ) {
             unit.update(bound);
+
             if(unit.position.getXi()!=x||unit.position.getYi()!=y){Removed.add(unit);continue;}
 
         }

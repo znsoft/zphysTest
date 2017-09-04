@@ -59,13 +59,13 @@ public class MyPaint extends javax.swing.JPanel {
 
             }
 
-
+*/
         for (zCell cell:field.touchedCells             ) {
             g.setColor(Color.LIGHT_GRAY);
-          //  g.drawRect((int)(cell.x * wb), (int)(cell.y * hb), (int)wb, (int)hb);
+            g.drawRect((int)(cell.x * wb), (int)(cell.y * hb), (int)wb, (int)hb);
 
         }
-*/
+
         for (Constraint c : Constraint.AllConstraints
                 ) {
             if(c.isHide)continue;
