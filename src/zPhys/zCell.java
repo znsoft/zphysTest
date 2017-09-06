@@ -10,6 +10,7 @@ public class zCell {
     public int x,y;
     public boolean isFreeze;
     public HashSet<Unit2D> inner;
+
     public zCell(int x,int y){
         inner = new HashSet<>();
         this.x = x;
@@ -17,34 +18,7 @@ public class zCell {
     }
 
     public void addUnit(Unit2D unit){
-/*
-        Vector2 normal = Vector2.ZERO;
-        if(inner.size()>4) {
-
-//     if(inner.size()<10)
-            for (Unit2D u : inner) {
-                double dx = u.position.getX() - unit.position.getX();
-                double dy = u.position.getY() - unit.position.getY();
-                normal.Add(new Vector2(dx, dy));
-            }
-            unit.AddXY(normal.normalize().Mul(0.2));
-            //break;
-            // u.attach(unit);
-
-        }
-        */
-/*        unit.position.SetXY(unit.position.prevpos.x,unit.position.prevpos.y);
-        if(inner.size()<4)for (Unit2D u : inner) {
-            double dist = unit.getDistanceTo(u);
-            if(dist<Constraint.GLUEDIST){unit.attach(u,false);break;}
-
-        }*/
-
         inner.add(unit);
-
-
-
-
     }
 
     public void removeUnit(Unit2D unit){

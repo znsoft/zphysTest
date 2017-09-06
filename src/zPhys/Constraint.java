@@ -17,8 +17,8 @@ public class Constraint {
 
     public static final double SPACING = 0.61; // длина спокойной (не сжатой и не растянутой) связи
     public static final double SPRINGCRASH = 1.95; // длина сжатой связи
-    public static final double TEARDIST = 2.5;// длина обрыва связи
-    public static final double GLUEDIST = 0.0273;// длина обрыва связи
+    public static final double TEARDIST = 15.5;// длина обрыва связи
+    public static final double GLUEDIST = 0.5455273;// длина обрыва связи
 public boolean isHide;
 
     public Constraint(Unit2D unit1, Unit2D unit2, boolean ishide) {
@@ -43,32 +43,36 @@ public boolean isHide;
         double mul = diff * CONSTRAINTFRICTION * (1 - this.length / dist);
 
         Vector2 delta = new Vector2(dx * mul * XDROP, dy * mul);
-     /*   if (dist <= this.length) {
+
+
+        if (dist > tearDist )//|| delta.length()> SPRINGCRASH) {
+            return this.tear();//}
+
+        if (dist <= GLUEDIST){
             unit1.position.swap();
             unit2.position.swap();
-            //return null;
-            }*/
 
-        if (dist > tearDist || delta.length()> SPRINGCRASH) {
-            return this.tear();}
 
+
+        }
         if (dist <= this.length) {
-
-            unit2.AddXY(delta);
-            unit1.SubXY(delta);
-            unit1.AddForce(delta.Mul(-0.3));
+            //unit2.AddXY(delta);
+            //unit1.SubXY(delta);
+            unit1.AddForce(delta.Mul(-1));
             unit2.AddForce(delta.Mul(-1));
 
             return null;
         }
-        unit1.AddXY(delta);
-        unit2.SubXY(delta);
+        unit1.AddForce(delta.Mul(1));
+        unit2.AddForce(delta.Mul(-1));
+
+        //unit1.AddXY(delta);
+        //unit2.SubXY(delta);
         return null;
     }
 
     public Constraint tear(){
-        unit1.free(unit2);
-        unit2.free(unit1);
+        unit1.free(this);
         return this;
     }
 

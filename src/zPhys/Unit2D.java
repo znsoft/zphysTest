@@ -6,10 +6,10 @@ import java.util.*;
  * Created by es.zheludkov on 30.08.2017.
  */
 public class Unit2D {
+    public ArrayList<Constraint> constraints;
     public Vector2 force;
     public Position2D position;
-    public HashMap<Unit2D,Constraint> linked = new HashMap<>();
-    double friction = 0.00000099;
+    double friction = 0.00199;
     double delta = 0.00216000;
     double gravity = 0.00000400;
     double bounce = 0.5;
@@ -20,11 +20,13 @@ public class Unit2D {
     public Unit2D(double x, double y) {
         position = new Position2D(x, y);
         this.force = Vector2.ZERO;//(0.0f,0.0f);
+        constraints = new ArrayList<>();
     }
 
     public Unit2D(int x, int y) {
         position = new Position2D(x, y);
         force = Vector2.ZERO;//(0.0f,0.0f);
+        constraints = new ArrayList<>();
     }
 
     public Unit2D AddForce(Vector2 vec){
@@ -67,39 +69,22 @@ public class Unit2D {
     public Constraint attach(Unit2D unit,boolean isHide){
         if(unit==null)return null;
         if(this==unit)return null;
-        if (linked.containsKey(unit)) return linked.get(unit);
-        linked.put(unit,new Constraint(this,unit,isHide));
-        return linked.put(unit, new Constraint(this,unit,isHide));
+        Constraint constraint = new Constraint(this,unit,isHide);
+        constraints.add(constraint);
+        return constraint;
     }
 
-    public Unit2D free(Unit2D unit){
-        linked.remove(unit);
+    public Unit2D free(Constraint constraint){
+        constraints.remove(constraint);
         return this;
     }
 
-
-
-    public static Unit2D calcPriorityUnit(Position2D point, Unit2D unit1, Unit2D unit2){
-        if(unit1==null)return unit2;
-        if(unit2==null)return unit1;
-        double r1,r2;
-        r1 = unit1.getSqrDistanceTo(point);
-        r2 = unit2.getSqrDistanceTo(point);
-        if(r1>r2)return unit2;
-        return unit1;
-
-    }
 
 
 
     public double getDistanceTo(Position2D point){
         return position.getDistanceTo(point);
     }
-
-    public double getSqrDistanceTo(Position2D point){
-        return position.getSqrDistanceTo(point);
-    }
-
 
     public void MouseClick(Position2D pos) {
 
