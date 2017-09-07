@@ -6,6 +6,8 @@ import java.util.HashSet;
  * Created by es.zheludkov on 01.09.2017.
  */
 public class Constraint {
+    public static final double ELASTICITY = 0.010;
+    public static final double FREEZE = 6.0;
     public static final double XDROP = 1.0;
     public static final double CONSTRAINTFRICTION = 0.5;
     public static HashSet<Constraint> AllConstraints = new HashSet<>();
@@ -17,7 +19,7 @@ public class Constraint {
 
     public static final double SPACING = 0.61; // длина спокойной (не сжатой и не растянутой) связи
     public static final double SPRINGCRASH = 1.95; // длина сжатой связи
-    public static final double TEARDIST = 2.5;// длина обрыва связи
+    public static final double TEARDIST = 3.5;// длина обрыва связи
     public static final double GLUEDIST = 0.0273;// длина обрыва связи
 public boolean isHide;
 
@@ -43,26 +45,19 @@ public boolean isHide;
         double mul = diff * CONSTRAINTFRICTION * (1 - this.length / dist);
 
         Vector2 delta = new Vector2(dx * mul * XDROP, dy * mul);
-     /*   if (dist <= this.length) {
-            unit1.position.swap();
-            unit2.position.swap();
-            //return null;
-            }*/
-
-        if (dist > tearDist || delta.length()> SPRINGCRASH) {
+        delta.Mul(ELASTICITY);
+        if (dist > tearDist) {
             return this.tear();}
 
         if (dist <= this.length) {
-
-            unit2.AddXY(delta);
-            unit1.SubXY(delta);
-            unit1.AddForce(delta.Mul(-0.3));
-            unit2.AddForce(delta.Mul(-1));
-
+            delta.Mul(FREEZE);
+            unit1.force.Sub(delta);
+           unit2.force.Add(delta);
             return null;
         }
-        unit1.AddXY(delta);
-        unit2.SubXY(delta);
+
+        unit1.force.Add(delta);
+        unit2.force.Sub(delta);
         return null;
     }
 

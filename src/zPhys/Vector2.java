@@ -19,28 +19,28 @@ public class Vector2 {
     }
 
     public Vector2 Add(Vector2 vec){
-        x+=vec.x;
-        y+=vec.y;
+        this.x=this.x+vec.x;
+        this.y=this.y+vec.y;
         return this;
     }
 
     public Vector2 Sub(Vector2 vec){
-        x-=vec.x;
-        y-=vec.y;
+        this.x=this.x-vec.x;
+        this.y=this.y-vec.y;
         return this;
     }
 
     public Vector2 normalize(){
         double max = StrictMath.max(x,y);
         if(max==0)return this;
-            x = x/max;
-            y = y/max;
+            this.x = x/max;
+            this.y = y/max;
             return this;
     }
 
     public Vector2 Mul(double m){
-        x*=m;
-        y*=m;
+        this.x*=m;
+        this.y*=m;
         return this;
     }
 

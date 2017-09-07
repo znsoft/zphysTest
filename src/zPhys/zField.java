@@ -97,8 +97,9 @@ s=1;
     }
 
     public zField update(){
-        ResolveCells();
         ResolveConstraints();
+        ResolveCells();
+
 
         return this;
     }

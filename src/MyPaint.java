@@ -74,11 +74,13 @@ public class MyPaint extends javax.swing.JPanel {
             int x2 = (int)(c.unit2.position.getX() * wb);
             int y1 = (int)(c.unit1.position.getY() * hb);
             int y2 = (int)(c.unit2.position.getY() * hb);
-
+            int r1 = (int)(c.rad *0.5 * wb);
 
 
             g.setColor(new Color(r));
-            g.drawLine((int)(c.unit1.position.getX() * wb),(int)(c.unit1.position.getY() * hb), (int)(c.unit2.position.getX() * wb),(int)(c.unit2.position.getY() * hb));
+           // g.drawOval(x1,y1,r1,r1);
+          //  g.drawOval(x2,y2,r1,r1);
+           g.drawLine((int)(c.unit1.position.getX() * wb),(int)(c.unit1.position.getY() * hb), (int)(c.unit2.position.getX() * wb),(int)(c.unit2.position.getY() * hb));
            // g.drawString(String.valueOf(c.rad),x1+(x2-x1)/2,y1+(y2-y1)/2);
         }
         }

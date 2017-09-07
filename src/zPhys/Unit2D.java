@@ -9,9 +9,9 @@ public class Unit2D {
     public Vector2 force;
     public Position2D position;
     public HashMap<Unit2D,Constraint> linked = new HashMap<>();
-    double friction = 0.00000099;
-    double delta = 0.00216000;
-    double gravity = 0.00000400;
+    double friction = 0.0;//0099;
+    double delta = 5.216;
+    double gravity = 0.000400;
     double bounce = 0.5;
 
     public boolean isPinned = false;
@@ -19,16 +19,19 @@ public class Unit2D {
 
     public Unit2D(double x, double y) {
         position = new Position2D(x, y);
-        this.force = Vector2.ZERO;//(0.0f,0.0f);
+        this.force = new Vector2(0.0f,0.0f);
+       // AddForce(new Vector2(0, gravity));
     }
 
     public Unit2D(int x, int y) {
         position = new Position2D(x, y);
-        force = Vector2.ZERO;//(0.0f,0.0f);
+       force = new Vector2(0.0f,0.0f);
+        //AddForce(new Vector2(0, gravity));
+
     }
 
     public Unit2D AddForce(Vector2 vec){
-        force.Add(vec);
+        this.force.Add(vec);
         return this;
     }
 
@@ -60,7 +63,7 @@ public class Unit2D {
         }
         //position.Add(new Vector2(nx,ny));
         position.SetXY(nx,ny);
-        force = Vector2.ZERO;
+        force = new Vector2(0.0f,0.0f);
         return this;
     }
 
