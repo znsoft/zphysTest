@@ -10,7 +10,7 @@ public class Unit2D {
     public Position2D position;
     public HashMap<Unit2D,Constraint> linked = new HashMap<>();
     double friction = 0.0;//0099;
-    double delta = 5.216;
+    double delta = 7.216;
     double gravity = 0.000400;
     double bounce = 0.5;
 
@@ -71,8 +71,22 @@ public class Unit2D {
         if(unit==null)return null;
         if(this==unit)return null;
         if (linked.containsKey(unit)) return linked.get(unit);
-        linked.put(unit,new Constraint(this,unit,isHide));
-        return linked.put(unit, new Constraint(this,unit,isHide));
+//        Constraint c = new Constraint(this,unit,isHide);
+       // linked.put(unit,new Constraint(this,unit,isHide));
+        return new Constraint(this,unit,isHide);
+    }
+
+    public Constraint attachField(Unit2D unit, double freeze, double elastic){
+        if(unit==null)return null;
+        if(this==unit)return null;
+        boolean isHide = true;
+        if (linked.containsKey(unit)) return null;
+        Constraint c = new Constraint(this,unit,isHide);
+        c.ELASTICITY = elastic;
+        c.FREEZE = freeze;
+        c.tearDist = 500;
+       // linked.put(unit,new Constraint(this,unit,isHide));
+        return  c;
     }
 
     public Unit2D free(Unit2D unit){

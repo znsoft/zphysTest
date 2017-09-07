@@ -17,29 +17,20 @@ public class zCell {
     }
 
     public void addUnit(Unit2D unit){
-/*
-        Vector2 normal = Vector2.ZERO;
-        if(inner.size()>4) {
 
-//     if(inner.size()<10)
-            for (Unit2D u : inner) {
-                double dx = u.position.getX() - unit.position.getX();
-                double dy = u.position.getY() - unit.position.getY();
-                normal.Add(new Vector2(dx, dy));
-            }
-            unit.AddXY(normal.normalize().Mul(0.2));
-            //break;
-            // u.attach(unit);
+//        unit.position.SetXY(unit.position.prevpos.x,unit.position.prevpos.y);
+        Unit2D connectTo = null;
+        double mindist = Constraint.GLUEDIST;
+        boolean isUnconnected = true;
+        for (Unit2D u : inner) {
+            double dist = unit.getDistanceTo(u);
+            
+            if(unit.linked.get(u) != null){isUnconnected = false;break;}
+                if(dist<mindist){mindist = dist; connectTo = u;}
+            //if(dist<Constraint.GLUEDIST){unit.attach(u,false);break;}
 
         }
-        */
-/*        unit.position.SetXY(unit.position.prevpos.x,unit.position.prevpos.y);
-        if(inner.size()<4)for (Unit2D u : inner) {
-            double dist = unit.getDistanceTo(u);
-            if(dist<Constraint.GLUEDIST){unit.attach(u,false);break;}
-
-        }*/
-
+if(isUnconnected)unit.attachField(connectTo,60,0.00001);
         inner.add(unit);
 
 
@@ -76,7 +67,7 @@ public class zCell {
         }
         if(minUnit!=null){
             zField.taked = minUnit;
-            minUnit.MouseClick(pos);minUnit.isPinned = false;}
+            minUnit.MouseClick(pos);minUnit.isPinned = true;}
     }
 
 }

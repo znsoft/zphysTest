@@ -6,7 +6,7 @@ package zPhys;
 public class Vector2 {
     public double x;
     public double y;
-    public static Vector2 ZERO = new Vector2(0.0d,0.0d);
+
 
     public Vector2(Vector2 vec) {
         this.x = vec.x;
