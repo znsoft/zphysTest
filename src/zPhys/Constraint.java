@@ -14,13 +14,14 @@ public class Constraint {
     public Unit2D unit1;
     public Unit2D unit2;
 
+
     public double length;
     public double rad;
     public double tearDist;// длина обрыва связи
 
     public static final double SPACING = 0.61; // длина спокойной (не сжатой и не растянутой) связи
-    public static final double SPRINGCRASH = 1.95; // длина сжатой связи
-    public static final double TEARDIST = 3.5;// длина обрыва связи
+    public static final double SPRINGSTOP = 0.05; // длина сжатой связи
+    public static final double TEARDIST = 4.5;// длина обрыва связи
     public static final double GLUEDIST = 30.873;// приклеивание
 public boolean isHide;
 
@@ -56,6 +57,10 @@ public boolean isHide;
             delta.Mul(FREEZE);
             unit1.force.Sub(delta);
            unit2.force.Add(delta);
+           if(dist<=SPRINGSTOP) {
+               unit1.position = new Position2D(unit1.position.prevpos);
+               unit2.position = new Position2D(unit2.position.prevpos);
+           }
             return null;
         }
         delta.Mul(ELASTICITY);

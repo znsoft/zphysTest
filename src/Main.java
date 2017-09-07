@@ -4,10 +4,14 @@ public class Main {
 
     public static void main(String[] args) {
 //        System.out.println("Hello World!");
-        zField field = new zField(20,20);
+        zField field = new zField(40,40);
 //        field.update();
         zForm zform = new zForm();
         zform.InitLocalVisualWindow(field);
+
+        toolbox dialog = new toolbox();
+        dialog.pack();
+        dialog.setVisible(true);
 
         while(zform.frame.isShowing()){
 
@@ -15,5 +19,6 @@ public class Main {
             zform.update();
         }
 
+        dialog.dispose();
     }
 }
