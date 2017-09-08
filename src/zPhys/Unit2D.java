@@ -9,9 +9,9 @@ public class Unit2D {
     public Vector2 force;
     public Position2D position;
     public HashMap<Unit2D,Constraint> linked = new HashMap<>();
-    double friction = 0.0;//0099;
-    double delta = 6.216;
-    double gravity = 0.000400;
+    double friction = 0.299;
+    double delta = 7.216;
+    double gravity = 0.000300;
     double bounce = 0.5;
 
     public boolean isPinned = false;
@@ -47,9 +47,11 @@ public class Unit2D {
     public Unit2D update( Vector2 bound){
         if(isPinned)return this;
         AddForce(new Vector2(0, gravity));
-        double nx = position.getX() + (position.getX() - position.prevpos.x) * friction + force.x * delta;
-        double ny = position.getY() + (position.getY() - position.prevpos.y) * friction + force.y * delta;
-
+        double nx =  (position.getX() - position.prevpos.x) * friction + force.x * delta;
+        double ny =  + (position.getY() - position.prevpos.y) * friction + force.y * delta;
+        double dist = StrictMath.hypot(nx,ny);
+        nx += position.getX();
+        ny += position.getY();
         if (nx >= bound.x) {
             nx = bound.x + (bound.x - nx) * bounce;
         } else if (nx <= 0) {
@@ -61,7 +63,7 @@ public class Unit2D {
         } else if (ny <= 0) {
             ny *= -1 * bounce;
         }
-        //position.Add(new Vector2(nx,ny));
+        if(dist<Constraint.TEARDIST)
         position.SetXY(nx,ny);
         force = new Vector2(0.0f,0.0f);
         return this;
@@ -82,10 +84,11 @@ public class Unit2D {
         boolean isHide = true;
         if (linked.containsKey(unit)) return null;
         Constraint c = new Constraint(this,unit,isHide);
-        c.ELASTICITY = -0.008751;
-        c.FREEZE = 0.099;
-        c.tearDist = 3;
-        c.length = 1.0;
+        c.ELASTICITY = -0.008;
+        c.FREEZE = 0.008;
+
+        c.tearDist = 1.9;
+        c.length = 0.4;
         unit.position = new Position2D(unit.position.prevpos);
         this.position = new Position2D(this.position.prevpos);
        // linked.put(unit,new Constraint(this,unit,isHide));

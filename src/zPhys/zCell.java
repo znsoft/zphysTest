@@ -19,18 +19,19 @@ public class zCell {
     public void addUnit(Unit2D unit){
 
 //        unit.position.SetXY(unit.position.prevpos.x,unit.position.prevpos.y);
-        Unit2D connectTo = null;
-        double mindist = Constraint.GLUEDIST;
+    //    Unit2D connectTo = null;
+  //      double mindist = Constraint.GLUEDIST;
         boolean isUnconnected = true;
         for (Unit2D u : inner) {
-            double dist = unit.getDistanceTo(u);
+//            double dist = unit.getDistanceTo(u);
             
             if(unit.linked.get(u) != null){isUnconnected = false;break;}
-                if(dist<mindist){mindist = dist; connectTo = u;}
+                //if(dist<mindist){mindist = dist; connectTo = u;                }
             //if(dist<Constraint.GLUEDIST){unit.attach(u,false);break;}
 
         }
-if(isUnconnected)unit.attachField(connectTo,60,0.00001);
+        if(isUnconnected)      for (Unit2D u : inner)unit.attachField(u,60,0.00001);
+//if(isUnconnected)unit.attachField(connectTo,60,0.00001);
         inner.add(unit);
 
 
@@ -67,7 +68,7 @@ if(isUnconnected)unit.attachField(connectTo,60,0.00001);
         }
         if(minUnit!=null){
             zField.taked = minUnit;
-            minUnit.MouseClick(pos);minUnit.isPinned = true;}
+            minUnit.MouseClick(pos);minUnit.isPinned = Controll.isPinMode;}
     }
 
 }

@@ -14,13 +14,13 @@ public class Constraint {
     public Unit2D unit1;
     public Unit2D unit2;
 
-
+    public double minlength;
     public double length;
     public double rad;
     public double tearDist;// длина обрыва связи
 
-    public static final double SPACING = 0.61; // длина спокойной (не сжатой и не растянутой) связи
-    public static final double SPRINGSTOP = 0.05; // длина сжатой связи
+    public static double SPACING = 0.61; // длина спокойной (не сжатой и не растянутой) связи
+    public static double SPRINGSTOP = 0.5; // длина сжатой связи
     public static final double TEARDIST = 4.5;// длина обрыва связи
     public static final double GLUEDIST = 30.873;// приклеивание
 public boolean isHide;
@@ -32,6 +32,7 @@ public boolean isHide;
         AllConstraints.add(this);
         tearDist = length * TEARDIST;
         isHide = ishide;
+        minlength = length * SPRINGSTOP;
         unit1.linked.put(unit2,this);
         unit2.linked.put(unit1,this);
     }
@@ -57,7 +58,7 @@ public boolean isHide;
             delta.Mul(FREEZE);
             unit1.force.Sub(delta);
            unit2.force.Add(delta);
-           if(dist<=SPRINGSTOP) {
+           if(dist<=minlength) {
                unit1.position = new Position2D(unit1.position.prevpos);
                unit2.position = new Position2D(unit2.position.prevpos);
            }

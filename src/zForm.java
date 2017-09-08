@@ -21,7 +21,7 @@ public class zForm {
         int cells = WINDOWSIZE;
         frame.setSize(cells, cells);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      //  frame.setLocationRelativeTo(null);
+        //frame.setLocationRelativeTo();
         //frame.add(check1);
 
         frame.add(paintTester);
@@ -32,7 +32,7 @@ public class zForm {
     public void update(){
 
 
-        frame.repaint(100, 0, 0, WINDOWSIZE, WINDOWSIZE);
+        frame.repaint(100, 0, 0, frame.getHeight(), frame.getWidth());
         frame.invalidate();
 
     }

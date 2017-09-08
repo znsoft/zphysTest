@@ -1,10 +1,11 @@
+import zPhys.Controll;
 import zPhys.zField;
 
 public class Main {
 
     public static void main(String[] args) {
 //        System.out.println("Hello World!");
-        zField field = new zField(40,40);
+        zField field = new zField(20,20);
 //        field.update();
         zForm zform = new zForm();
         zform.InitLocalVisualWindow(field);
@@ -15,7 +16,7 @@ public class Main {
 
         while(zform.frame.isShowing()){
 
-            field.update();
+            if(!Controll.isPause)field.update();
             zform.update();
         }
 

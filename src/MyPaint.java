@@ -1,14 +1,15 @@
-import zPhys.Constraint;
-import zPhys.Position2D;
-import zPhys.zCell;
-import zPhys.zField;
+import zPhys.*;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class MyPaint extends javax.swing.JPanel {
+public class MyPaint extends javax.swing.JPanel implements MouseListener {
     zField field;
+    double wb,hb;
     public MyPaint(zField field) {
       this.field = field;
+        this.addMouseListener(this);
     }
 
     @Override
@@ -20,28 +21,21 @@ public class MyPaint extends javax.swing.JPanel {
 
 
     public void DrawField(Graphics g) {
-        double wb =  (g.getClipBounds().getWidth() / field.x);
-        double hb =  (g.getClipBounds().getHeight() / field.y);
+        wb =  (g.getClipBounds().getWidth() / field.x);
+        hb =  (g.getClipBounds().getHeight() / field.y);
 
         g.clearRect(0,0,(int)g.getClipBounds().getWidth(),(int)g.getClipBounds().getHeight());
 
         g.setColor(Color.ORANGE);
         Point point = getMousePosition();
         if(point !=null){
-        double xm = point.getX();
-        double ym = getMousePosition().getY();
-        if(xm<g.getClipBounds().getWidth()&&ym<g.getClipBounds().getHeight()&&xm>0&&ym>0)
-        {
-            g.fillRect((int)(xm), (int)(ym), (int)10, (int)10);
-            //if(zField.taked==null) {
-                field.Click(xm / wb, ym / hb, true);
-            //}else{
-              //  Position2D pos = new Position2D(xm,ym);
-                //zField.taked.MouseClick(pos);
+            double xm = point.getX();
+            double ym = point.getY();
 
-           // }
-
-        }else{zField.taked = null;}
+            if(xm<g.getClipBounds().getWidth()&&ym<g.getClipBounds().getHeight()&&xm>0&&ym>0)
+            {
+                g.fillRect((int)(xm), (int)(ym), (int)10, (int)10);
+            }else{zField.taked = null;}
 
 
 
@@ -86,4 +80,32 @@ public class MyPaint extends javax.swing.JPanel {
         }
 
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
     }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+            double xm = e.getX();
+            double ym = e.getY();
+
+                field.Click(xm / wb, ym / hb, true);
+        this.invalidate();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+}
