@@ -10,8 +10,8 @@ public class Unit2D {
     public Position2D position;
     public HashMap<Unit2D,Constraint> linked = new HashMap<>();
     double friction = 0.299;
-    double delta = 7.216;
-    double gravity = 0.000300;
+    double delta = 17.216;
+    double gravity = 0.000333;
     double bounce = 0.5;
 
     public boolean isPinned = false;

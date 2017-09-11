@@ -21,6 +21,7 @@ public class zForm {
         int cells = WINDOWSIZE;
         frame.setSize(cells, cells);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.move(2400,400);
         //frame.setLocationRelativeTo();
         //frame.add(check1);
 

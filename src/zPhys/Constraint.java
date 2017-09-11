@@ -8,8 +8,8 @@ import java.util.HashSet;
 public class Constraint {
     public  double ELASTICITY = 0.010;
     public  double FREEZE = 0.060;
-    public static final double XDROP = 0.5;
-    public static final double CONSTRAINTFRICTION = 0.5;
+    public static final double XDROP = 0.965;
+    public static final double CONSTRAINTFRICTION = 0.354;
     public static HashSet<Constraint> AllConstraints = new HashSet<>();
     public Unit2D unit1;
     public Unit2D unit2;
@@ -19,9 +19,9 @@ public class Constraint {
     public double rad;
     public double tearDist;// длина обрыва связи
 
-    public static double SPACING = 0.61; // длина спокойной (не сжатой и не растянутой) связи
-    public static double SPRINGSTOP = 0.5; // длина сжатой связи
-    public static final double TEARDIST = 4.5;// длина обрыва связи
+    public static double SPACING = 0.79; // длина спокойной (не сжатой и не растянутой) связи
+    public static double SPRINGSTOP = 0.78; // длина сжатой связи
+    public static final double TEARDIST = 2.5;// длина обрыва связи
     public static final double GLUEDIST = 30.873;// приклеивание
 public boolean isHide;
 
